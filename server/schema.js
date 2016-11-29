@@ -29,6 +29,12 @@ const resolvers = {
       return context.githubConnector.getUserForLogin(context.user.login);
     }
   },
+  Mutation: {
+    follow(_, args, context) {
+      return context.githubConnector.follow(args.login)
+                    .then(() => context.githubConnector.getUserForLogin(args.login))
+    },
+  },
   User: {
     following( user, args, context ) {
       const { page, perPage } = args;

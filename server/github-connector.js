@@ -15,6 +15,17 @@ class GithubConnector {
     return this.getFromGithub(`/users/${login}/following`, page, perPage);
   }
   
+  follow( login ) {
+    return this.putToGithub(`/user/following/${login}`);
+  }
+  
+  putToGithub( relativeUrl ) {
+    const url = `https://api.github.com${relativeUrl}?access_token=${this.accessToken}`;
+    
+    const options = { method: 'PUT', headers: { 'Content-Length': 0 } };
+    return fetch(url, options).then(() => this.dataLoader.clearAll());
+  }
+  
   getFromGithub( relativeUrl, page, perPage ) {
     const url = `https://api.github.com${relativeUrl}?access_token=${this.accessToken}`;
     return this.dataLoader.load(this.paginate(url, page, perPage));

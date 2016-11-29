@@ -8,7 +8,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
 const networkInterface = createNetworkInterface({ uri: '/graphql' });
-const client = new ApolloClient({ networkInterface });
+const dataIdFromObject = obj => obj.id && obj.__typename ? `${obj.__typename}:${obj.id}` : null;
+
+const client = new ApolloClient({ networkInterface, dataIdFromObject });
 
 const app = (
   <ApolloProvider client={client}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, } from 'react-bootstrap';
+import { Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import { getFragmentDefinitions } from 'apollo-client';
@@ -8,6 +8,8 @@ import './App.css';
 import { FollowList } from './components/FollowList';
 
 class App extends Component {
+  state = {};
+  
   render() {
     const { data = {} } = this.props;
     const { loading, me = {}, error } = data;
@@ -23,11 +25,26 @@ class App extends Component {
         <Grid>
           <Row>
             <Col xs={6} md={6}>
+              <h3>Following {me.followingCount}</h3>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={6} md={6}>
               {
                 loading ?
                   <h3>Loading...</h3> :
                   <FollowList users={me.following}/>
               }
+            </Col>
+            <Col xs={6} md={6}>
+              <form>
+                <FormGroup id="loginField">
+                  <ControlLabel>Enter user's login to follow</ControlLabel>
+                  <FormControl type="text"
+                               placeholder="try davidyaha..."
+                               onChange={e => this.setState({ selectedUser: e.target.value })}/>
+                </FormGroup>
+              </form>
             </Col>
           </Row>
         </Grid>
