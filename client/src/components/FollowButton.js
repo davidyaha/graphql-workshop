@@ -35,6 +35,15 @@ const FOLLOW_MUTATION = gql`
 
 function follow( mutate, login ) {
   if ( login ) {
+    const optimisticResponse = {
+      __typename: 'Mutation',
+      follow: {
+        __typename: 'User',
+        id: 'temp',
+        login: login,
+        name: '',
+      },
+    };
     
     const updateQueries = {
       App: ( previousResult, { mutationResult } ) => {
@@ -50,7 +59,7 @@ function follow( mutate, login ) {
       },
     };
     
-    return mutate({ variables: { login }, updateQueries})
+    return mutate({ variables: { login }, optimisticResponse, updateQueries})
   } else {
     return Promise.reject('Can\'t follow because no login was supplied');
   }
