@@ -3,6 +3,7 @@ import { Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-boot
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import { getFragmentDefinitions } from 'apollo-client';
+import update from 'react-addons-update';
 import logo from './logo.svg';
 import './App.css';
 import { FollowList } from './components/FollowList';
@@ -33,7 +34,9 @@ class App extends Component {
               {
                 loading ?
                   <h3>Loading...</h3> :
-                  <FollowList users={me.following}/>
+                  <FollowList users={me.following}
+                              loadMore={this.loadMore.bind(this)}
+                              hasMore={() => this.hasMoreToLoad()}/>
               }
             </Col>
             <Col xs={6} md={6}>
@@ -51,13 +54,54 @@ class App extends Component {
       </div>
     );
   }
+  
+  loadMore() {
+    const { data: { fetchMore } } = this.props;
+    const { currentPage = 1 } = this.state;
+    
+    if ( this.hasMoreToLoad() ) {
+      const nextPage = currentPage + 1;
+      
+      fetchMore({
+        // Set new variables
+        variables: { page: nextPage },
+        
+        // The result's state reducer
+        updateQuery( previous, { fetchMoreResult } ) {
+          // Don't update state if there is no data returned
+          if ( !fetchMoreResult.data ) { return previous; }
+          
+          return update(previous, {
+            me: {
+              following: {
+                $push: fetchMoreResult.data.me.following,
+              }
+            }
+          });
+        }
+      }).then(() => {
+        this.setState({ currentPage: nextPage });
+      })
+    }
+  }
+  
+  hasMoreToLoad() {
+    const { data: { me = {} } } = this.props;
+    
+    const { followingCount } = me;
+    const { currentPage = 1 } = this.state;
+    
+    return currentPage * PER_PAGE < followingCount;
+  }
 }
 
+const PER_PAGE = 15;
 const ME_QUERY = gql`
-    query App {
+    query App($page: Int) {
         me {
             id
-            following {
+            followingCount
+            following(page: $page, perPage: ${PER_PAGE}) {
                 ...FollowList
             }
         }
