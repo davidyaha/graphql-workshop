@@ -1,5 +1,4 @@
-const { makeExecutableSchema, addMockFunctionsToSchema, MockList } = require('graphql-tools');
-const casual                                                       = require('casual');
+const { makeExecutableSchema } = require('graphql-tools');
 
 const typeDefs = `
   schema {
@@ -24,18 +23,25 @@ const typeDefs = `
   }
 `;
 
-const Schema = makeExecutableSchema({ typeDefs });
-
-const mocks = {
-  User: () => ({
-    login: () => casual.username,
-    name: () => casual.name,
-    followingCount: () => casual.integer(0),
-    following: (_, {perPage}) => new MockList(perPage),
-  }),
+const resolvers = {
+  Query: {
+    me( _, args, context ) {
+      return context.githubConnector.getUserForLogin(context.user.login);
+    }
+  },
+  User: {
+    following( user, args, context ) {
+      const { page, perPage } = args;
+      return context.githubConnector.getFollowingForLogin(user.login, page, perPage)
+                    .then(users =>
+                      users.map(user => context.githubConnector.getUserForLogin(user.login))
+                    );
+    },
+    followingCount: user => user.following,
+  }
 };
 
-addMockFunctionsToSchema({schema: Schema, mocks});
+const Schema = makeExecutableSchema({ typeDefs, resolvers });
 
 module.exports = {
   Schema,
