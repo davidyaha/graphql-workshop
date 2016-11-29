@@ -7,6 +7,7 @@ import update from 'react-addons-update';
 import logo from './logo.svg';
 import './App.css';
 import { FollowList } from './components/FollowList';
+import FollowButton from './components/FollowButton';
 
 class App extends Component {
   state = {};
@@ -47,6 +48,7 @@ class App extends Component {
                                placeholder="try davidyaha..."
                                onChange={e => this.setState({ selectedUser: e.target.value })}/>
                 </FormGroup>
+                <FollowButton login={this.state.selectedUser}/>
               </form>
             </Col>
           </Row>
