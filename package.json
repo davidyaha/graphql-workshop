@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "server": "cd server && npm run watch",
-    "start": "npm run server"
+    "web": "cd client && npm start",
+    "start": "concurrently \"npm run web\" \"npm run server\"",
+    "postinstall": "(cd client && npm install) && (cd server && npm install)"
   },
   "repository": {
     "type": "git",
