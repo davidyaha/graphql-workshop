@@ -1,0 +1,22 @@
+{
+  "name": "graqhql-workshop",
+  "version": "1.0.0",
+  "scripts": {
+    "server": "cd server && npm run watch",
+    "start": "npm run server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidyaha/graqhql-workshop.git"
+  },
+  "keywords": [],
+  "author": "David Yahalomi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidyaha/graqhql-workshop/issues"
+  },
+  "homepage": "https://github.com/davidyaha/graqhql-workshop#readme",
+  "devDependencies": {
+    "concurrently": "^3.1.0"
+  }
+}

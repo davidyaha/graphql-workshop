@@ -1,0 +1,37 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js"
+  },
+  "keywords": [
+    "tutorial",
+    "graphql",
+    "apollo",
+    "server",
+    "express"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidyaha/graqhql-workshop.git"
+  },
+  "author": "David Yahalomi",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "casual": "^1.5.8",
+    "dataloader": "^1.2.0",
+    "express": "^4.14.0",
+    "graphql": "^0.7.2",
+    "graphql-server-express": "^0.4.3",
+    "graphql-tools": "^0.8.3",
+    "morgan": "^1.7.0",
+    "node-fetch": "^1.6.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
