@@ -1,4 +1,5 @@
-const { makeExecutableSchema } = require('graphql-tools');
+const { makeExecutableSchema, addMockFunctionsToSchema, MockList } = require('graphql-tools');
+const casual                                                       = require('casual');
 
 const typeDefs = `
   schema {
@@ -24,6 +25,17 @@ const typeDefs = `
 `;
 
 const Schema = makeExecutableSchema({ typeDefs });
+
+const mocks = {
+  User: () => ({
+    login: () => casual.username,
+    name: () => casual.name,
+    followingCount: () => casual.integer(0),
+    following: (_, {perPage}) => new MockList(perPage),
+  }),
+};
+
+addMockFunctionsToSchema({schema: Schema, mocks});
 
 module.exports = {
   Schema,
