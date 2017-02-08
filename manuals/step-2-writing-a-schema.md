@@ -11,7 +11,7 @@ every REST Api with GraphQL endpoint.
 ```bash
 mkdir step-2 && cd step-2
 git clone https://github.com/davidyaha/graphql-workshop.git ./
-git checkout tag/step-2
+git checkout tags/step-2
 ```
 
 - Install all

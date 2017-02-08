@@ -6,7 +6,7 @@
 ```bash
 mkdir step-5 && cd step-5
 git clone https://github.com/davidyaha/graphql-workshop.git ./
-git checkout tag/step-5
+git checkout tags/step-5
 ```
 
 - Install all
@@ -258,6 +258,22 @@ function follow( mutate, login ) {
     return Promise.reject('Can\'t follow because no login was supplied');
   }
 }
+```
+
+- Add the button to App.js
+
+```javascript
+     //...
+     <form>
+        <FormGroup id="loginField">
+          <ControlLabel>Enter user's login to follow</ControlLabel>
+          <FormControl type="text"
+                       placeholder="try davidyaha..."
+                       onChange={e => this.setState({ selectedUser: e.target.value })}/>
+        </FormGroup>
+        <FollowButton login={this.state.selectedUser}/>
+      </form>
+      // ...
 ```
 
 - Try it by following me "davidyaha" :)

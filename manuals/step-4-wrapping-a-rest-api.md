@@ -8,7 +8,7 @@ Now that we have our app working with mocks, we would like change the mocks with
 ```bash
 mkdir step-4 && cd step-4
 git clone https://github.com/davidyaha/graphql-workshop.git ./
-git checkout tag/step-4
+git checkout tags/step-4
 ```
 
 - Install all
