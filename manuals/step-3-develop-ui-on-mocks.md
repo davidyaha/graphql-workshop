@@ -7,7 +7,7 @@
 ```bash
 mkdir step-3 && cd step-3
 git clone https://github.com/davidyaha/graphql-workshop.git ./
-git checkout tag/step-3
+git checkout tags/step-3
 ```
 
 - Install all
@@ -324,7 +324,9 @@ const ME_QUERY = gql`
     query App {
         me {
             id
-            ...FollowList
+            following { 
+                ...FollowList
+            }
         }
     }
 `;
@@ -375,7 +377,7 @@ class App extends Component {
               {
                 loading ?
                   <h3>Loading...</h3> :
-                  <FollowList users={me.following}/>
+                  <FollowList users={me.following} onUserSelected={()=>null}/>
               }
             </Col>
           </Row>
