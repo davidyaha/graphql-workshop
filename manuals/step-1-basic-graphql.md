@@ -18,7 +18,7 @@ Queries - Go into github’s graphiql and run some queries - https://developer.g
           node {
             login
             name
-            avatarURL(size: 100)
+            avatarUrl(size: 100)
           }
         }
       }
