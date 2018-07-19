@@ -6,8 +6,7 @@ const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
 const { Schema } = require('./schema');
 const { GithubConnector } = require('./github-connector');
 
-const GITHUB_LOGIN = 'davidyaha';
-const GITHUB_ACCESS_TOKEN = 'sjkafdhjkh32098097halskdjhf';
+const { GITHUB_LOGIN = 'davidyaha', GITHUB_ACCESS_TOKEN = 'sjkafdhjkh32098097halskdjhf' } = process.env;
 
 const app = express();
 

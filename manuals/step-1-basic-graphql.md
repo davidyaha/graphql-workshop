@@ -18,7 +18,7 @@ Queries - Go into github’s graphiql and run some queries - https://developer.g
           node {
             login
             name
-            avatarURL(size: 100)
+            avatarUrl(size: 100)
           }
         }
       }
@@ -140,4 +140,10 @@ Cool we've succesfully queried and mutated data on a GraphQL API server. Let's t
       ...userFields
     }
   }
+
+  fragment userFields on User {
+    name
+    bio
+  }
+
   ```
