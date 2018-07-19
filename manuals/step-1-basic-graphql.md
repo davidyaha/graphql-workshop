@@ -140,4 +140,10 @@ Cool we've succesfully queried and mutated data on a GraphQL API server. Let's t
       ...userFields
     }
   }
+
+  fragment userFields on User {
+    name
+    bio
+  }
+
   ```
